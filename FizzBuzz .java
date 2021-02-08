@@ -1,6 +1,6 @@
 /**
  * Author: Hunter Stennett
- * Version: 2.1
+ * Version: 2.2
  */
 package com.company;
 import java.util.Scanner;
@@ -70,47 +70,76 @@ public class FizzBuzz {
         }
     }
 
+    /**
+     * Getter method for '_fizz' instance variable. Returns current value of _fizz;
+     * @return _fizz value;
+     */
     public int getFizz() {
         return _fizz;
     }
 
+    /**
+     * Getter method for '_buzz' instance variable. Returns current value of _buzz;
+     * @return _buzz value;
+     */
     public int getBuzz() {
         return _buzz;
     }
 
+    /**
+     * isFInvalid error checks _fizz, returns true if input number is invalid,
+     * returns false if number is valid and can be set to _fizz;
+     * @return _fizz is valid or invalid;
+     */
     public boolean isFInvalid() {
         return getFizz() < 0 || getFizz() > 100;
     }
 
+    /**
+     * isBInvalid error checks _buzz, returns true if input number is invalid,
+     * returns false if number is valid and can be set to _buzz;
+     * @return _buzz is valid or invalid;
+     */
     public boolean isBInvalid() {
         return getBuzz() < 0 || getBuzz() > 100;
     }
 
+    /**
+     * isInvalid checks to is if _fizz or _buzz is invalid. If either are invalid,
+     * returns true. Otherwise, returns false;
+     * @return true if _fizz or _buzz is invalid;
+     */
     public boolean isInvalid() {
         return isFInvalid() || isBInvalid();
     }
 
+    /**
+     * dialog is a void method that starts the process of getting numbers from the user.
+     * First asks for _fizz number input and error checks with isFInvalid(), then asks for
+     * _buzz number input and error checks with isInvalid(). Finally, runs the method fbLoop();
+     */
     public void dialog() {
         System.out.println("Enter any number for Fizz between 1-100");
         _fizz = _keyboard.nextInt();
+        while(isFInvalid()) {
+            System.out.println("Invalid Fizz Number. Number must be 1-100");
+            _fizz = _keyboard.nextInt();
+        }
         System.out.println("Enter any number for Buzz between 1-100");
         _buzz = _keyboard.nextInt();
         while (isInvalid()) {
-            if(getFizz() < 0 || getFizz() > 100) {
-                System.out.println("Invalid Fizz Number. Number must be 1-100");
-                _fizz = _keyboard.nextInt();
-            } else  {
-                while (isBInvalid()) {
-                    if(getBuzz() < 0 || getBuzz() > 100) {
-                        System.out.println("Invalid Buzz number. Number must be 1-100");
-                        _buzz = _keyboard.nextInt();
-                    }
-                }
-            }
+            System.out.println("Invalid Buzz number. Number must be 1-100");
+            _buzz = _keyboard.nextInt();
         }
         fbLoop();
     }
 
+    /**
+     * fbLoop() runs the input values through a simple for loop with branching if-else statement.
+     * If _fizz AND _buzz values are multiples of current number in the for loop, prints FizzBuzz.
+     * Then if _fizz value is multiple it prints Fizz. If _buzz is a multiple for current number in loop,
+     * prints Buzz to console, if not prints current value of 'i' in for loop;
+     */
     public void fbLoop() {
         for (int i = 1; i <= 100; i++) {
             if (i % getFizz() == 0 && i % getBuzz() == 0) {
@@ -121,18 +150,27 @@ public class FizzBuzz {
                 System.out.println("Buzz");
             } else {
                 System.out.println(i);
-                //if (!isFInvalid() && !isBInvalid()) {
-                // isInvalid() = false;
-
             }
         }
     }
 
+    /**
+     * Overrides toString() method from the Object class. Prints out the values input for
+     * _fizz and _buzz;
+     * @return String representing current values of _fizz and _buzz
+     */
     @Override
     public String toString() {
         return String.format("Fizz = %d, Buzz = %d", getFizz(), getBuzz());
     }
 
+    /**
+     * Overrides equals() method from the Object class. Checks if object is null
+     * or if it isn't the same class as calling object. Then compares values of
+     * _fizz and _buzz. Both are primitive values, so shallow copying isn't an issue;
+     * @param obj
+     * @return true if _fizz and _buzz values are the same in both FizzBuzz objects;
+     */
     @Override
     public boolean equals(Object obj) {
         if(obj == null) {
